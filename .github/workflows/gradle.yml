@@ -23,3 +23,18 @@ jobs:
       run: chmod +x gradlew
     - name: compile with Gradle
       run: ./gradlew compileJava
+
+  Test:
+    run-on: ubuntu-latest
+    needs: Compile
+    steps:
+    - uses: actions/checkout@v2
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Test with Gradle
+      run: ./gradlew test
+    - name: upload all test report DIR
+      uses: actions/upload-artifact@v2
+      with:
+        name: testReport
+        path: build/reports/
