@@ -65,10 +65,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: buildJar
+          path: target
       - name: release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            buildJar/st_nycu_lab4-${{ needs.Assemble.outputs.version }}.jar
+            target/st_nycu_lab4-${{ needs.Assemble.outputs.version }}.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
