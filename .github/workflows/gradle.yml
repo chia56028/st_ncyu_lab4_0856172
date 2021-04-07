@@ -65,4 +65,4 @@ jobs:
           files: |
             buildJar/st_nycu_lab4-${{ needs.Assemble.outputs.version }}.jar
           env:
-            GITHUB_TOKEN: ${{ secrets.LAB4_SECRET }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
