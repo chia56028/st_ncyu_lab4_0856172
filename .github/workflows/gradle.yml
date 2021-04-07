@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: Test
     outputs:
-      version: ${{ steps.getVersion.outputs.version }}
+      version: ${{ steps.tag_version.outputs.new_tag }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -52,6 +52,11 @@ jobs:
       with:
         name: buildJar
         path: build/libs/*.jar
+    - name: Bump version and push tag
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v5.4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
   Release:
     if: startsWith(github.ref, 'refs/tags/')
@@ -65,9 +70,9 @@ jobs:
       - name: release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            *.jar
           # files: |
-          #   buildJar/st_nycu_lab4-${{ needs.Assemble.outputs.version }}.jar
+          #   *.jar
+          files: |
+            buildJar/st_nycu_lab4-${{ needs.Assemble.outputs.version }}.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
