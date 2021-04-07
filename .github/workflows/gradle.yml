@@ -69,8 +69,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            *.jar
-          # files: |
-          #   buildJar/st_nycu_lab4-${{ needs.Assemble.outputs.version }}.jar
+            buildJar/st_nycu_lab4-${{ needs.Assemble.outputs.version }}.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
